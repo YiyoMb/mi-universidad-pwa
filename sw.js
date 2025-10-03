@@ -21,3 +21,17 @@ self.addEventListener('fetch', event => {
             .then(response => response || fetch(event.request))
     );
 });
+
+//Soporte para notificaciones push
+self.addEventListener('push', event => {
+    const data = event.data.json();
+    const options = {
+        body: data.body,
+        icon: 'icons/icon-192.png',
+        badge: 'icons/icon-192.png'
+    };
+    event.waitUntil(
+        self.registration.showNotification(data.title, options)
+    );
+});
+
